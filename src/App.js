@@ -25,6 +25,18 @@ function App() {
     token: null,
   });
 
+
+  ///check if logged in
+  React.useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem("token"));
+    console.log(token);
+    if (token) {
+      setGState({ ...gState, token: token.token });
+    }
+  }, []);
+
+
+
   return (
     <GlobalCtx.Provider value={{gState, setGState}}>
       <Router>
