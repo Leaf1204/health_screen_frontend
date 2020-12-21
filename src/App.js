@@ -46,10 +46,10 @@ function App() {
       <main>
        
         <Switch>
-          <Route exact path="/" render={(rp => <h1>Home</h1>)}></Route>
+          <Route exact path="/" render={(rp => gState.token ? <h1>Dashboard</h1> : <h1>Home</h1>)}></Route>
           <Route path="/signup" render={(rp) => <Signup {...rp}/>}/>
           <Route path="/login" render={(rp) => <Login {...rp}/>}/>
-          <Route path="/dashboard" render={(rp => <h1>dashboard</h1>)}></Route>
+          {/* <Route path="/dashboard" render={(rp => <h1>dashboard</h1>)}></Route> */}
         </Switch>
       
       </main>
