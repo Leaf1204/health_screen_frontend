@@ -1,8 +1,10 @@
 import React from "react";
 import logo from './logo.svg';
 import Header from "./components/Header";
-import Signup from "./pages/signup"
-import Login from "./pages/login"
+import Signup from "./pages/signup";
+import Login from "./pages/login";
+import Home from "./pages/home";
+import Dashboard from "./pages/dashboard";
 import {
   BrowserRouter as Router,
   Switch,
@@ -46,7 +48,7 @@ function App() {
       <main>
        
         <Switch>
-          <Route exact path="/" render={(rp => gState.token ? <h1>Dashboard</h1> : <h1>Home</h1>)}></Route>
+          <Route exact path="/" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route path="/signup" render={(rp) => <Signup {...rp}/>}/>
           <Route path="/login" render={(rp) => <Login {...rp}/>}/>
           {/* <Route path="/dashboard" render={(rp => <h1>dashboard</h1>)}></Route> */}
