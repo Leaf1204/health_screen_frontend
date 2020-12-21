@@ -2,6 +2,7 @@ import React from "react";
 import logo from './logo.svg';
 import Header from "./components/Header";
 import Signup from "./pages/signup"
+import Login from "./pages/login"
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,20 +20,23 @@ export const GlobalCtx = React.createContext(null)
 
 
 function App() {
-  const [gState, setGState] = React.useState({url: "http://localhost:5000"});
+  const [gState, setGState] = React.useState({
+    url: "http://localhost:5000",
+    token: null,
+  });
 
   return (
     <GlobalCtx.Provider value={{gState, setGState}}>
       <Router>
     <div className="App">
-      <h1>Health Screener</h1>
+      <Link to="/"><h1>Health Screener</h1></Link>
       <Header/>
       <main>
        
         <Switch>
           <Route exact path="/" render={(rp => <h1>Home</h1>)}></Route>
           <Route path="/signup" render={(rp) => <Signup {...rp}/>}/>
-          <Route path="/login" render={(rp => <h1>login</h1>)}></Route>
+          <Route path="/login" render={(rp) => <Login {...rp}/>}/>
           <Route path="/dashboard" render={(rp => <h1>dashboard</h1>)}></Route>
         </Switch>
       
