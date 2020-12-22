@@ -37,7 +37,14 @@ const Login = (props) => {
             window.localStorage.setItem("token", JSON.stringify(data))
             setGState({...gState, token: data.token});
             setForm(blankForm);
+            // todo : check typeOf on token and redirect to correct page
+            // todo: look up https://www.npmjs.com/package/jwt-decode
+
+            // admin route
             props.history.push("/");
+            // teacher route
+
+            // parent route
         })
 
      }

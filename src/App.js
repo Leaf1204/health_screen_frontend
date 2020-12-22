@@ -5,6 +5,7 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
+import ParentForm from "./components/forms/parentForm"
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,13 +43,14 @@ function App() {
   return (
     <GlobalCtx.Provider value={{gState, setGState}}>
       <Router>
-    <div className="App">
+      <div className="App">
       <Link to="/"><h1>Health Screener</h1></Link>
       <Header/>
       <main>
        
         <Switch>
           <Route exact path="/" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
+          <Route exact path="/create" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route path="/signup" render={(rp) => <Signup {...rp}/>}/>
           <Route path="/login" render={(rp) => <Login {...rp}/>}/>
           {/* <Route path="/dashboard" render={(rp => <h1>dashboard</h1>)}></Route> */}
