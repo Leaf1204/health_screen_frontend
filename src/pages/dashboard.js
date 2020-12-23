@@ -1,5 +1,8 @@
 import React from "react";
 import { GlobalCtx } from "../App";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,6 +11,7 @@ import {
   } from "react-router-dom";
 import ParentForm from "../components/forms/parentForm";
 import StudentForm from "../components/forms/studentForm"
+import { MDBCard, MDBCardHeader, MDBCardBody, MDBTableEditable, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
 
 
 const Dashboard = (props) => {
@@ -74,49 +78,119 @@ const Dashboard = (props) => {
         .then(data => {
             getParents()
         })
+    
+    }
 //////////// create student //////////
 
-// const handleCreateStudent = (student) => {
-//     console.log(JSON.stringify(student))
-//       fetch(url + "/student/", { 
-//           method: "post",
-//           headers: {
-//               "Content-Type": "application/json",
-//               Authorization: `bearer ${token}`
-//           },
-//           body: JSON.stringify(student)
-//       })
-//       .then(response => response.json())
-//       .then(data => {
-//           getStudents()
-//       })
+const handleCreateStudent = (student) => {
+    console.log(JSON.stringify(student))
+      fetch(url + "/student/", { 
+          method: "post",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `bearer ${token}`
+          },
+          body: JSON.stringify(student)
+      })
+      .then(response => response.json())
+      .then(data => {
+          getStudents()
+      })
+    }
 
-  }
   return (
       <div>
           <h1>Dashboard</h1>
-          <h2>Parents</h2>
-          <Link to="/create">
-              <button>Add Parent</button>
-          </Link>
-          {/* <h2>students</h2>
-          <Link to="/create">
-              <button>Add student</button>
-          </Link> */}
+          
           <main>
-              <div className="parentContainer">
+              <div>
               <Switch>
                 <Route 
                   exact 
                   path="/"
                   render={(rp)=>(
-                    <ul>
-                    {parents ? parents.map((parent) => (
-                        <li key={parent._id}>
-                          {parent.parentName}
-                          </li>
+                    <>
+                    <MDBCard>
+                    <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                        Parents
+                        <Link to="/create">
+                        <button>Add Parent</button>
+                    </Link>
+                    </MDBCardHeader>
+                    <MDBCardBody>
+                
+
+                    <MDBTable>
+                        <MDBTableHead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>User Name</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </MDBTableHead>
+                        <MDBTableBody>
+                            {
+                                parents ? parents.map((parent) => (
+                                <tr>
+                                <td>{parent._id}</td>
+                                <td >{parent.parentName}</td>
+                                <td>{parent.username}</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                                </tr>
+                            )) : null }
+                        </MDBTableBody>
+                        </MDBTable>
+                        </MDBCardBody>
+                        </MDBCard>
+                    <h2>students</h2>
+                    <Link to="/createStudent">
+                        <button>Add student</button>
+                    </Link>  
+                    <table>
+                        <thead><td>Name</td></thead>
+                    <tr>
+                    {students ? students.map((student) => (
+                        <tr key={student._id}>
+                        {student.child_name}
+                        </tr>
                     )) : null }
-                    </ul>
+                    </tr>
+                    </table>
+                    {/* <MDBTable>
+      <MDBTableHead>
+        <tr>
+          <th>#</th>
+          <th>First</th>
+          <th>Last</th>
+          <th>Handle</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </MDBTableBody>
+    </MDBTable> */}
+
+                    </>
                   )}/>
                   <Route 
                   exact 
@@ -128,34 +202,19 @@ const Dashboard = (props) => {
                         handleSubmit={handleCreate}
                     /> 
                   )}/>
-              </Switch>
-              </div>
-             {/* <div className="studentContainer">       
-              <Switch>
-                <Route 
-                  exact 
-                  path="/"
-                  render={(rp)=>(
-                    <ul>
-                    {students ? students.map((student) => (
-                        <li key={student._id}>
-                          {student.child_name}
-                          </li>
-                    )) : null }
-                    </ul>
-                  )}/>
                   <Route 
                   exact 
-                  path="/create"
+                  path="/createStudent"
                   render={(rp)=>(
                     <StudentForm
                         {...rp}
-                        parent={emptystudents}
+                        student={emptystudents}
+                        parents={parents}
                         handleSubmit={handleCreateStudent}
                     /> 
                   )}/>
               </Switch>
-              </div>   */}
+              </div> 
           </main>
 
       </div>

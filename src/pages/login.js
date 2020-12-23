@@ -1,5 +1,6 @@
 import React from "react";
 import {GlobalCtx} from "../App";
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 const Login = (props) => {
 
@@ -51,11 +52,22 @@ const Login = (props) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text"  placeholder="username" name="username" value={form.username} onChange={handleChange}></input>
-                <input type="password" placehold="password" name="password" value={form.password} onChange={handleChange}></input>
-                <input type="submit" value="login" />
-            </form>
+            <MDBContainer>
+                <MDBRow>
+                    <MDBCol md="6">
+                    <form onSubmit={handleSubmit}>
+                        <p className="h5 text-center mb-4">Sign in</p>
+                        <div className="grey-text">
+                        <MDBInput label="username" icon="envelope" name= "username" value={form.username} onChange={handleChange}></MDBInput>
+                        <MDBInput label="Type your password" icon="lock" name="password" value={form.password} onChange={handleChange}></MDBInput>
+                        </div>
+                        <div className="text-center">
+                            <MDBBtn type="submit">Login</MDBBtn>
+                            </div>
+                    </form>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
         </div>
     )
 
