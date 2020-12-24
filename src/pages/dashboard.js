@@ -10,8 +10,9 @@ import {
     Link
   } from "react-router-dom";
 import ParentForm from "../components/forms/parentForm";
-import StudentForm from "../components/forms/studentForm"
-import { MDBCard, MDBCardHeader, MDBCardBody, MDBTableEditable, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
+import StudentForm from "../components/forms/studentForm";
+import TeacherForm from "../components/forms/teacherForm";
+import { MDBCard, MDBCardHeader, MDBCardBody, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
 
 
 const Dashboard = (props) => {
@@ -19,16 +20,25 @@ const Dashboard = (props) => {
   const { url, token } = gState;
   const [parents, setParents] = React.useState(null);
   const [students, setStudents] = React.useState(null);
+  const [teachers, setTeachers] = React.useState(null);
 
   const emptyParent = {
+    username: "",
+    parentName: ""
+  };
+
+  const emptystudents = {
     child_name: "",
     child_image: "",
     parent_user_name: ""
   };
 
-  const emptystudents = {
+  const emptyTeachers = {
+    teacherName: "",
+    username: "",
+    students_ids: []
+  };
 
-  }
   //fetching parents 
   const getParents = async() => {
     const response = await fetch(url + "/parent/", {
@@ -61,11 +71,26 @@ const Dashboard = (props) => {
   React.useEffect (() => {
      getStudents() 
   }, [])
+////// feacting teachers /////
+
+const getTeachers = async() => {
+    const response = await fetch(url + "/teacher/", {
+        method: "get",
+        headers: {
+            Authorization: "bearer " + token
+        }
+    })
+    const json = await response.json()
+    setTeachers(json)
+  }
+  //have teacher data displayed on page
+  React.useEffect (() => {
+     getTeachers() 
+  }, [])
 
   ////// create Parent ///////
 
   const handleCreate = (parent) => {
-      console.log(JSON.stringify(parent))
         fetch(url + "/parent/", { 
             method: "post",
             headers: {
@@ -83,7 +108,6 @@ const Dashboard = (props) => {
 //////////// create student //////////
 
 const handleCreateStudent = (student) => {
-    console.log(JSON.stringify(student))
       fetch(url + "/student/", { 
           method: "post",
           headers: {
@@ -97,6 +121,24 @@ const handleCreateStudent = (student) => {
           getStudents()
       })
     }
+
+
+/////// create Teacher /////////
+const handleCreateTeacher = (teacher) => {
+      fetch(url + "/teacher/", { 
+          method: "post",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `bearer ${token}`
+          },
+          body: JSON.stringify(teacher)
+      })
+      .then(response => response.json())
+      .then(data => {
+          getTeachers()
+      })
+    }
+
 
   return (
       <div>
@@ -112,14 +154,12 @@ const handleCreateStudent = (student) => {
                     <>
                     <MDBCard>
                     <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
-                        Parents
+                        <h2>Parents</h2>
                         <Link to="/create">
                         <button>Add Parent</button>
                     </Link>
                     </MDBCardHeader>
                     <MDBCardBody>
-                
-
                     <MDBTable>
                         <MDBTableHead>
                             <tr>
@@ -145,51 +185,72 @@ const handleCreateStudent = (student) => {
                         </MDBTable>
                         </MDBCardBody>
                         </MDBCard>
-                    <h2>students</h2>
-                    <Link to="/createStudent">
-                        <button>Add student</button>
-                    </Link>  
-                    <table>
-                        <thead><td>Name</td></thead>
-                    <tr>
-                    {students ? students.map((student) => (
-                        <tr key={student._id}>
-                        {student.child_name}
-                        </tr>
-                    )) : null }
-                    </tr>
-                    </table>
-                    {/* <MDBTable>
-      <MDBTableHead>
-        <tr>
-          <th>#</th>
-          <th>First</th>
-          <th>Last</th>
-          <th>Handle</th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </MDBTableBody>
-    </MDBTable> */}
+                            <MDBCard>
+                                <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                                    <h2>students</h2>
+                                    <Link to="/createStudent">
+                                    <button>Add student</button>
+                                    </Link>  
+                                </MDBCardHeader>
+                     <MDBCardBody>
+                        <MDBTable>
+                        <MDBTableHead>
+                        <tr>
+                                <th>Student Id</th>
+                                <th>Student Name</th>
+                                <th>Parent User Name</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {
+                                    students ? students.map((student) => (
+                                    <tr> 
+                                    <td>{student._id}</td>
+                                    <td> {student.child_name}</td>
+                                    <td>{student.parent_user_name}</td>
+                                    <td>Edit</td>
+                                    <td>Delete</td>
+                                    </tr>
+                                 )) : null 
+                                }
+                         </MDBTableBody>
+                        </MDBTable>
+                        </MDBCardBody>
+                        </MDBCard>
+                        <MDBCard>
+                                <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                                    <h2>Teachers</h2>
+                                    <Link to="/createTeacher">
+                                    <button>Add teacher</button>
+                                    </Link>  
+                                </MDBCardHeader>
+                     <MDBCardBody>
+                        <MDBTable>
+                        <MDBTableHead>
+                            <tr>
+                                <th>Teacher Name</th>
+                                <th>username</th>
+                                <th>class list: students_ids</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </MDBTableHead>
+                        <MDBTableBody>
+                            {
+                                teachers ? teachers.map((teacher) => (
+                                    <tr>
+                                        <td>{teacher.teacherName}</td>
+                                        <td>{teacher.username}</td>
+                                    </tr>
+                                )): null
+                            }
 
+                        </MDBTableBody>
+                        </MDBTable>
+                        </MDBCardBody>
+                        </MDBCard>
                     </>
                   )}/>
                   <Route 
@@ -211,6 +272,17 @@ const handleCreateStudent = (student) => {
                         student={emptystudents}
                         parents={parents}
                         handleSubmit={handleCreateStudent}
+                    /> 
+                  )}/>
+                  <Route 
+                  exact 
+                  path="/createTeacher"
+                  render={(rp)=>(
+                    <TeacherForm
+                        {...rp}
+                        teacher={emptyTeachers}
+                        students={students}
+                        handleSubmit={handleCreateTeacher}
                     /> 
                   )}/>
               </Switch>
