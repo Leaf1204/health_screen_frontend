@@ -27,7 +27,7 @@ const StudentForm = (props) => {
           <select name="parent_user_name" onChange={handleChange} >
             {
               parents.map((parent)=>{
-                return <option key={parent._id} value={parent._id}>{parent.parentName}</option>
+                return <option key={parent.username} value={parent.username}>{parent.parentName}</option>
               })
             }
           </select>

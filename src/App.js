@@ -5,6 +5,8 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
+import TeacherDashboard from "./pages/teacherDashboard";
+import ParentDashboard from "./pages/parentDashboard";
 
 
 import {
@@ -51,6 +53,9 @@ function App() {
        
         <Switch>
           <Route exact path="/" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
+          <Route exact path="/teacherDashboard" render={(rp => gState.token ? <TeacherDashboard/> : <Home/>)}></Route>
+          <Route exact path="/parentDashboard" render={(rp => gState.token ? <ParentDashboard/> : <Home/>)}></Route>
+          <Route exact path="/healthForm" render={(rp => gState.token ? <ParentDashboard/> : <Home/>)}></Route>
           <Route exact path="/create" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route exact path="/edit" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route exact path="/createStudent" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>

@@ -4,9 +4,7 @@ import { MDBInput } from "mdbreact";
 
 const ParentForm = (props) => {
   //state for the form
-
   const [formData, setFormData] = React.useState(props.parent);
-
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent Form from Refreshing

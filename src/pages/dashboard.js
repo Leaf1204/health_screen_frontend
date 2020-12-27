@@ -91,7 +91,7 @@ fetch(url + "/parent/" + parent._id, {
     "Content-Type": "application/json",
     Authorization: `bearer ${token}`
   },
-  body: JSON.stringify(id),
+  body: JSON.stringify(parent),
 }).then((response) => response.json())
 .then((data) => {
     // update.current.value="";

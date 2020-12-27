@@ -1,4 +1,5 @@
 import React from "react";
+import jwt_decode from "jwt-decode";
 import {GlobalCtx} from "../App";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
@@ -38,14 +39,16 @@ const Login = (props) => {
             window.localStorage.setItem("token", JSON.stringify(data))
             setGState({...gState, token: data.token});
             setForm(blankForm);
-            // todo : check typeOf on token and redirect to correct page
-            // todo: look up https://www.npmjs.com/package/jwt-decode
 
-            // admin route
-            props.history.push("/");
-            // teacher route
+            const decodedToken = jwt_decode(data.token);
 
-            // parent route
+            if(decodedToken.typeOf == "admin"){
+                props.history.push("/");
+            }else if(decodedToken.typeOf == "teacher"){
+                props.history.push("/teacherDashboard");
+            }else if(decodedToken.typeOf == "parent"){
+                props.history.push("/parentDashboard");
+            }
         })
 
      }
@@ -59,7 +62,7 @@ const Login = (props) => {
                         <p className="h5 text-center mb-4 my-5">Sign in</p>
                         <div className="grey-text">
                         <MDBInput label="username" icon="envelope" name= "username" value={form.username} onChange={handleChange}></MDBInput>
-                        <MDBInput label="Type your password" icon="lock" name="password" value={form.password} onChange={handleChange}></MDBInput>
+                        <MDBInput label="Type your password" icon="lock" name="password" value={form.password} onChange={handleChange} type="password"></MDBInput>
                         </div>
                         <div className="text-center">
                             <MDBBtn type="submit">Login</MDBBtn>
