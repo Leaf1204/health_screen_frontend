@@ -12,32 +12,35 @@ import {
 import ParentForm from "../components/forms/parentForm";
 import StudentForm from "../components/forms/studentForm";
 import TeacherForm from "../components/forms/teacherForm";
-import { MDBCard, MDBCardHeader, MDBCardBody, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
+import { MDBContainer, MDBCard, MDBCardHeader, MDBCardBody, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
 
 
 const Dashboard = (props) => {
+
+const emptyParent = {
+    username: "",
+    parentName: ""
+    };
+
+    const emptystudents = {
+    child_name: "",
+    child_image: "",
+    parent_user_name: ""
+    };
+
+    const emptyTeachers = {
+    teacherName: "",
+    username: "",
+    students_ids: []
+    };
+    
+
   const { gState, setGState } = React.useContext(GlobalCtx);
   const { url, token } = gState;
   const [parents, setParents] = React.useState(null);
   const [students, setStudents] = React.useState(null);
   const [teachers, setTeachers] = React.useState(null);
-
-  const emptyParent = {
-    username: "",
-    parentName: ""
-  };
-
-  const emptystudents = {
-    child_name: "",
-    child_image: "",
-    parent_user_name: ""
-  };
-
-  const emptyTeachers = {
-    teacherName: "",
-    username: "",
-    students_ids: []
-  };
+  const [selectedParent, setSelectedParent] = React.useState(emptyParent);
 
   //fetching parents 
   const getParents = async() => {
@@ -56,21 +59,74 @@ const Dashboard = (props) => {
     getParents() 
  }, [])
 
-  //fetching students 
-  const getStudents = async() => {
-    const response = await fetch(url + "/student/", {
-        method: "get",
+  ////// handleCreate to create Parent ///////
+
+  const handleCreate = (parent) => {
+    fetch(url + "/parent/", { 
+        method: "post",
         headers: {
-            Authorization: "bearer " + token
-        }
+            "Content-Type": "application/json",
+            Authorization: `bearer ${token}`
+        },
+        body: JSON.stringify(parent)
     })
-    const json = await response.json()
-    setStudents(json)
-  }
-  //have student data displayed on page
-  React.useEffect (() => {
-     getStudents() 
-  }, [])
+    .then(response => response.json())
+    .then(data => {
+        getParents()
+    })
+
+}
+
+//////handleUpdate to update a parent when form is clicked
+
+const handleUpdate = (parent, id) => {
+// const parent = update.current.value;
+console.log(parent)
+fetch(url + "/parent/" + parent._id, {
+
+  method: "put",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `bearer ${token}`
+  },
+  body: JSON.stringify(id),
+}).then((response) => response.json())
+.then((data) => {
+    // update.current.value="";
+    getParents();
+    });
+};
+
+///// deleteParent function to delete a parent from db
+
+const handleDelete = (id) => {
+fetch(url + "/parent/" + id, { 
+    method: "delete",
+    headers: {
+        Authorization: `bearer ${token}`
+    },
+})
+.then(response => response.json())
+.then(data => {
+    getParents()
+})
+}
+
+//fetching students 
+const getStudents = async() => {
+const response = await fetch(url + "/student/", {
+    method: "get",
+    headers: {
+        Authorization: "bearer " + token
+    }
+})
+const json = await response.json()
+setStudents(json)
+}
+//have student data displayed on page
+React.useEffect (() => {
+    getStudents() 
+}, [])
 ////// feacting teachers /////
 
 const getTeachers = async() => {
@@ -88,25 +144,7 @@ const getTeachers = async() => {
      getTeachers() 
   }, [])
 
-  ////// create Parent ///////
-
-  const handleCreate = (parent) => {
-        fetch(url + "/parent/", { 
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `bearer ${token}`
-            },
-            body: JSON.stringify(parent)
-        })
-        .then(response => response.json())
-        .then(data => {
-            getParents()
-        })
-    
-    }
 //////////// create student //////////
-
 const handleCreateStudent = (student) => {
       fetch(url + "/student/", { 
           method: "post",
@@ -121,7 +159,6 @@ const handleCreateStudent = (student) => {
           getStudents()
       })
     }
-
 
 /////// create Teacher /////////
 const handleCreateTeacher = (teacher) => {
@@ -141,8 +178,9 @@ const handleCreateTeacher = (teacher) => {
 
 
   return (
+    <MDBContainer>
       <div>
-          <h1>Dashboard</h1>
+          <h1>Admin Dashboard</h1>
           
           <main>
               <div>
@@ -152,10 +190,11 @@ const handleCreateTeacher = (teacher) => {
                   path="/"
                   render={(rp)=>(
                     <>
+                   
                     <MDBCard>
                     <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
-                        <h2>Parents</h2>
-                        <Link to="/create">
+                        Parents
+                        <Link to="/create" params={{label:'created'}}>
                         <button>Add Parent</button>
                     </Link>
                     </MDBCardHeader>
@@ -172,13 +211,13 @@ const handleCreateTeacher = (teacher) => {
                         </MDBTableHead>
                         <MDBTableBody>
                             {
-                                parents ? parents.map((parent) => (
+                                parents ? parents.map((parent, idx) => (
                                 <tr>
                                 <td>{parent._id}</td>
                                 <td >{parent.parentName}</td>
                                 <td>{parent.username}</td>
-                                <td>Edit</td>
-                                <td>Delete</td>
+                                <td><Link to={`/edit`} onClick={()=>setSelectedParent(parent)}>Edit</Link></td>
+                                <td><Link onClick={() => handleDelete(parent._id)}>Delete</Link></td>
                                 </tr>
                             )) : null }
                         </MDBTableBody>
@@ -187,7 +226,7 @@ const handleCreateTeacher = (teacher) => {
                         </MDBCard>
                             <MDBCard>
                                 <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
-                                    <h2>students</h2>
+                                   students
                                     <Link to="/createStudent">
                                     <button>Add student</button>
                                     </Link>  
@@ -221,7 +260,7 @@ const handleCreateTeacher = (teacher) => {
                         </MDBCard>
                         <MDBCard>
                                 <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
-                                    <h2>Teachers</h2>
+                                   Teachers
                                     <Link to="/createTeacher">
                                     <button>Add teacher</button>
                                     </Link>  
@@ -259,8 +298,20 @@ const handleCreateTeacher = (teacher) => {
                   render={(rp)=>(
                     <ParentForm
                         {...rp}
+                        label="create"
                         parent={emptyParent}
                         handleSubmit={handleCreate}
+                    /> 
+                  )}/>
+                  <Route 
+                  exact 
+                  path="/edit"
+                  render={(rp)=>(
+                    <ParentForm
+                        {...rp}
+                        label="edit"
+                        parent={selectedParent}
+                        handleSubmit={handleUpdate}
                     /> 
                   )}/>
                   <Route 
@@ -290,6 +341,7 @@ const handleCreateTeacher = (teacher) => {
           </main>
 
       </div>
+    </MDBContainer>
   );
 };
 

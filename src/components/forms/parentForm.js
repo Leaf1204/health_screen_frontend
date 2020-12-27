@@ -23,7 +23,7 @@ const ParentForm = (props) => {
           <input type="text" placeholder="Parent Name" name="parentName" value={formData.parentName} onChange={handleChange} ></input>
           <input type="text" placeholder="username" name="username" value={formData.username} onChange={handleChange} ></input>
           <input type="password" placeholder="password" name="password" value={formData.password} onChange={handleChange} ></input>
-          <input type="submit" value="Create Parent" />
+          <input type="submit" value={props.label} />
       </form>
       </>
   );

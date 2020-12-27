@@ -51,7 +51,7 @@ const Login = (props) => {
      }
 
     return (
-        <div>
+     
             <MDBContainer>
                 <MDBRow>
                     <MDBCol md="6">
@@ -68,7 +68,7 @@ const Login = (props) => {
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
-        </div>
+      
     )
 
 }
