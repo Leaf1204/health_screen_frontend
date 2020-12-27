@@ -22,13 +22,13 @@ const emptyParent = {
     parentName: ""
     };
 
-    const emptystudents = {
+    const emptyStudent = {
     child_name: "",
     child_image: "",
     parent_user_name: ""
     };
 
-    const emptyTeachers = {
+    const emptyTeacher = {
     teacherName: "",
     username: "",
     students_ids: []
@@ -41,6 +41,8 @@ const emptyParent = {
   const [students, setStudents] = React.useState(null);
   const [teachers, setTeachers] = React.useState(null);
   const [selectedParent, setSelectedParent] = React.useState(emptyParent);
+  const [selectedStudent, setSelectedStudent] = React.useState(emptyStudent);
+  const [selectedTeacher, setSelectedTeacher] = React.useState(emptyTeacher);
 
   //fetching parents 
   const getParents = async() => {
@@ -127,6 +129,55 @@ setStudents(json)
 React.useEffect (() => {
     getStudents() 
 }, [])
+
+//////////// create student //////////
+const handleCreateStudent = (student) => {
+    fetch(url + "/student/", { 
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${token}`
+        },
+        body: JSON.stringify(student)
+    })
+    .then(response => response.json())
+    .then(data => {
+        getStudents()
+    })
+  }
+
+//////handleUpdateStudent to update a student when form is clicked
+
+const handleUpdateStudent = (student, id) => {
+    fetch(url + "/student/" + student._id, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify(id),
+    }).then((response) => response.json())
+    .then((data) => {
+        getStudents();
+        });
+    };
+
+///// deleteStudent function to delete a student from db
+
+const handleDeleteStudent = (id) => {
+    fetch(url + "/student/" + id, { 
+        method: "delete",
+        headers: {
+            Authorization: `bearer ${token}`
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        getStudents()
+    })
+    }
+    
+
 ////// feacting teachers /////
 
 const getTeachers = async() => {
@@ -144,21 +195,6 @@ const getTeachers = async() => {
      getTeachers() 
   }, [])
 
-//////////// create student //////////
-const handleCreateStudent = (student) => {
-      fetch(url + "/student/", { 
-          method: "post",
-          headers: {
-              "Content-Type": "application/json",
-              Authorization: `bearer ${token}`
-          },
-          body: JSON.stringify(student)
-      })
-      .then(response => response.json())
-      .then(data => {
-          getStudents()
-      })
-    }
 
 /////// create Teacher /////////
 const handleCreateTeacher = (teacher) => {
@@ -176,6 +212,41 @@ const handleCreateTeacher = (teacher) => {
       })
     }
 
+    //////handleUpdate to update a parent when form is clicked
+
+const handleUpdateTeacher = (teacher, id) => {
+    // const parent = update.current.value;
+    console.log(teacher)
+    fetch(url + "/teacher/" + teacher._id, {
+    
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`
+      },
+      body: JSON.stringify(id),
+    }).then((response) => response.json())
+    .then((data) => {
+        // update.current.value="";
+        getTeachers();
+        });
+    };
+
+///// deleteTeacher function to delete a teacher from db
+
+const handleDeleteTeacher = (id) => {
+    fetch(url + "/teacher/" + id, { 
+        method: "delete",
+        headers: {
+            Authorization: `bearer ${token}`
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        getTeachers()
+    })
+    }
+    
 
   return (
     <MDBContainer>
@@ -205,17 +276,19 @@ const handleCreateTeacher = (teacher) => {
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>User Name</th>
+                                <th>Kids</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
                             {
-                                parents ? parents.map((parent, idx) => (
+                                parents ? parents.map((parent) => (
                                 <tr>
                                 <td>{parent._id}</td>
                                 <td >{parent.parentName}</td>
                                 <td>{parent.username}</td>
+                                <td>todo</td>
                                 <td><Link to={`/edit`} onClick={()=>setSelectedParent(parent)}>Edit</Link></td>
                                 <td><Link onClick={() => handleDelete(parent._id)}>Delete</Link></td>
                                 </tr>
@@ -237,6 +310,7 @@ const handleCreateTeacher = (teacher) => {
                         <tr>
                                 <th>Student Id</th>
                                 <th>Student Name</th>
+                                <th>Student Picture</th>
                                 <th>Parent User Name</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -248,9 +322,10 @@ const handleCreateTeacher = (teacher) => {
                                     <tr> 
                                     <td>{student._id}</td>
                                     <td> {student.child_name}</td>
+                                    <td>{student.child_image}</td>
                                     <td>{student.parent_user_name}</td>
-                                    <td>Edit</td>
-                                    <td>Delete</td>
+                                    <td><Link to={`/studentEdit`} onClick={()=>setSelectedStudent(student)}>Edit</Link></td>
+                                    <td><Link onClick={() => handleDeleteStudent(student._id)}>Delete</Link></td>
                                     </tr>
                                  )) : null 
                                 }
@@ -271,7 +346,7 @@ const handleCreateTeacher = (teacher) => {
                             <tr>
                                 <th>Teacher Name</th>
                                 <th>username</th>
-                                <th>class list: students_ids</th>
+                                <th>class list</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -282,6 +357,9 @@ const handleCreateTeacher = (teacher) => {
                                     <tr>
                                         <td>{teacher.teacherName}</td>
                                         <td>{teacher.username}</td>
+                                        <td>{teacher.students_ids.join(",")}</td>
+                                        <td><Link to={`/teacherEdit`} onClick={()=>setSelectedTeacher(teacher)}>Edit</Link></td>
+                                        <td><Link onClick={() => handleDeleteTeacher(teacher._id)}>Delete</Link></td>
                                     </tr>
                                 )): null
                             }
@@ -320,9 +398,21 @@ const handleCreateTeacher = (teacher) => {
                   render={(rp)=>(
                     <StudentForm
                         {...rp}
-                        student={emptystudents}
+                        student={emptyStudent}
                         parents={parents}
                         handleSubmit={handleCreateStudent}
+                    /> 
+                  )}/>
+                  <Route 
+                  exact 
+                  path="/studentEdit"
+                  render={(rp)=>(
+                    <StudentForm
+                        {...rp}
+                        label="edit"
+                        student={selectedStudent}
+                        parents={parents}
+                        handleSubmit={handleUpdateStudent}
                     /> 
                   )}/>
                   <Route 
@@ -331,9 +421,22 @@ const handleCreateTeacher = (teacher) => {
                   render={(rp)=>(
                     <TeacherForm
                         {...rp}
-                        teacher={emptyTeachers}
+                        teacher={emptyTeacher}
                         students={students}
                         handleSubmit={handleCreateTeacher}
+                    /> 
+                  )}/>
+                  <Route 
+                  exact 
+                  path="/teacherEdit"
+                  render={(rp)=>(
+                    <TeacherForm
+                        {...rp}
+                        label="edit"
+                        teacher={selectedTeacher}
+                        // student={selectedStudent}
+                        // students={students}
+                        handleSubmit={handleUpdateTeacher}
                     /> 
                   )}/>
               </Switch>
@@ -346,3 +449,4 @@ const handleCreateTeacher = (teacher) => {
 };
 
   export default Dashboard;
+

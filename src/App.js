@@ -5,7 +5,7 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
-import ParentForm from "./components/forms/parentForm"
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -53,7 +53,9 @@ function App() {
           <Route exact path="/create" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route exact path="/edit" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route exact path="/createStudent" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
+          <Route exact path="/studentEdit" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route exact path="/createTeacher" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
+          <Route exact path="/teacherEdit" render={(rp => gState.token ? <Dashboard/> : <Home/>)}></Route>
           <Route path="/signup" render={(rp) => <Signup {...rp}/>}/>
           <Route path="/login" render={(rp) => <Login {...rp}/>}/>
         </Switch>

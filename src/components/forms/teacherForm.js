@@ -7,9 +7,14 @@ const TeacherForm = (props) => {
   // todo : extract .parents property, then use it to build a select element (each value is an option)
   const [formData, setFormData] = React.useState(props.teacher);
   const [students] = React.useState(props.students);
+  const [selected, setSelected] = React.useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent Form from Refreshing
+    const selectedIds = selected.map((student)=>{
+      return student.value;
+    }).join(",");
+    formData.students_ids = selectedIds;
     props.handleSubmit(formData); // Submit to Parents desired function
     props.history.push("/"); //Push back to display page
   };
@@ -30,20 +35,16 @@ const TeacherForm = (props) => {
       return options;
   }
 
+
   return (
       <>
       <form onSubmit={handleSubmit}>
           <input type="text" placeholder="teacher Name" name="teacherName" value={formData.teacherName} onChange={handleChange} ></input> <br/>
           Students:<br/>
-          {
-              students.map((student)=>{
-              return <><input type="checkbox" id={student._id} name={student._id} value={student._id}></input> <label for={student._id}>{student.child_name}</label><br/></>
-              })
-          }
-          {/* <MultiSelect options={transformStudents()} /> */}
+          <MultiSelect options={transformStudents()} value={selected} onChange={setSelected} labelledBy={"Select"}/>
           <input type="text" placeholder="username" name="username" value={formData.username} onChange={handleChange} ></input>
           <input type="password" placeholder="password" name="password" value={formData.password} onChange={handleChange} ></input>
-          <input type="submit" value="Create teacher" />
+          <input type="submit" value={props.label} />
       </form>
       </>
   );

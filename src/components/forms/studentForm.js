@@ -31,7 +31,7 @@ const StudentForm = (props) => {
               })
             }
           </select>
-          <input type="submit" value="Create Student" />
+          <input type="submit" value={props.label} />
       </form>
       </>
   );
