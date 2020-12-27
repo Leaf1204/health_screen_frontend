@@ -1,6 +1,6 @@
 import React from "react";
 import {GlobalCtx} from "../App";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
 const Signup = (props) => {
 
@@ -43,24 +43,20 @@ const Signup = (props) => {
 
     return (
 
-        <MDBContainer>
-        <MDBRow>
-          <MDBCol md="6">
-            <MDBCard>
-              <MDBCardBody>
-            <form onSubmit={handleSubmit}>
-            <p className="h4 text-center py-4">Sign up</p>
+      <MDBContainer>
+      <MDBRow>
+          <MDBCol md="4">
+          <form onSubmit={handleSubmit}>
+            <p className="h5 text-center mb-4 my-5">Sign up</p>
                 <div className="grey-text">
                 <MDBInput type="text"  label="username" icon="user" name="username" value={form.username} onChange={handleChange}></MDBInput>
                 <MDBInput type="password" label="Your password" icon="lock"name="password" value={form.password} onChange={handleChange}></MDBInput>
                 <MDBInput type="submit" value="signup" />
             </div>
             </form>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+            </MDBCol>
+                </MDBRow>
+            </MDBContainer>
     )
 }
 

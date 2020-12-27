@@ -54,9 +54,9 @@ const Login = (props) => {
      
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol md="6">
+                    <MDBCol md="4">
                     <form onSubmit={handleSubmit}>
-                        <p className="h5 text-center mb-4">Sign in</p>
+                        <p className="h5 text-center mb-4 my-5">Sign in</p>
                         <div className="grey-text">
                         <MDBInput label="username" icon="envelope" name= "username" value={form.username} onChange={handleChange}></MDBInput>
                         <MDBInput label="Type your password" icon="lock" name="password" value={form.password} onChange={handleChange}></MDBInput>

@@ -1,13 +1,12 @@
 import React from "react";
-
+import { MDBContainer } from 'mdbreact';
 
 const Home = (props) => {
 
   return (
-      <div>
-          <h1>Welcome</h1>
-          <p>Please signup then login to view your dashboard</p>
-      </div>
+    <MDBContainer>
+    
+    </MDBContainer>
   );
 };
   

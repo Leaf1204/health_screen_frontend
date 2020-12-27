@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
 
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,7 +45,7 @@ function App() {
     <GlobalCtx.Provider value={{gState, setGState}}>
       <Router>
       <div className="App">
-      <Link to="/"><h1>Health Screener</h1></Link>
+
       <Header/>
       <main>
        
