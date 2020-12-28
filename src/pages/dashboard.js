@@ -12,7 +12,7 @@ import {
 import ParentForm from "../components/forms/parentForm";
 import StudentForm from "../components/forms/studentForm";
 import TeacherForm from "../components/forms/teacherForm";
-import { MDBContainer, MDBCard, MDBCardHeader, MDBCardBody, MDBTableBody, MDBTable, MDBTableHead } from "mdbreact";
+import { MDBContainer, MDBCard, MDBCardHeader, MDBCardBody, MDBTableBody, MDBTable, MDBTableHead, MDBIcon, MDBBtn } from "mdbreact";
 
 
 const Dashboard = (props) => {
@@ -259,11 +259,8 @@ const handleDeleteTeacher = (id) => {
                     <>
                    
                     <MDBCard>
-                    <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                    <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
                         Parents
-                        <Link to="/create" params={{label:'created'}}>
-                        <button>Add Parent</button>
-                    </Link>
                     </MDBCardHeader>
                     <MDBCardBody>
                     <MDBTable>
@@ -291,14 +288,16 @@ const handleDeleteTeacher = (id) => {
                             )) : null }
                         </MDBTableBody>
                         </MDBTable>
+                        <Link to="/create" params={{label:'created'}}>
+                        <MDBBtn outline color="#e8eaf6 indigo lighten-5">
+                            add parent <MDBIcon icon="plus" className="mr-1" />
+                        </MDBBtn>
+                        </Link>
                         </MDBCardBody>
                         </MDBCard>
-                            <MDBCard>
-                                <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                            <MDBCard className="my-5">
+                                <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
                                    students
-                                    <Link to="/createStudent">
-                                    <button>Add student</button>
-                                    </Link>  
                                 </MDBCardHeader>
                      <MDBCardBody>
                         <MDBTable>
@@ -327,14 +326,16 @@ const handleDeleteTeacher = (id) => {
                                 }
                          </MDBTableBody>
                         </MDBTable>
+                                    <Link to="/createStudent">
+                                        <MDBBtn outline color="#e8eaf6 indigo lighten-5">
+                                        add student <MDBIcon icon="plus" className="mr-1" />
+                                        </MDBBtn>
+                                    </Link>  
                         </MDBCardBody>
                         </MDBCard>
                         <MDBCard>
-                                <MDBCardHeader tag="h3" className="text-center font-weight-bold text-uppercase py-4">
+                                <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
                                    Teachers
-                                    <Link to="/createTeacher">
-                                    <button>Add teacher</button>
-                                    </Link>  
                                 </MDBCardHeader>
                      <MDBCardBody>
                         <MDBTable>
@@ -362,6 +363,11 @@ const handleDeleteTeacher = (id) => {
 
                         </MDBTableBody>
                         </MDBTable>
+                                    <Link to="/createTeacher">
+                                        <MDBBtn outline color="#e8eaf6 indigo lighten-5">
+                                            add teacher <MDBIcon icon="plus" className="mr-1" />
+                                         </MDBBtn>
+                                    </Link>  
                         </MDBCardBody>
                         </MDBCard>
                     </>
