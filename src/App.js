@@ -35,7 +35,7 @@ function App() {
   ///check if logged in
   React.useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem("token"));
-    console.log(token);
+    //console.log(token);
     if (token) {
       setGState({ ...gState, token: token.token });
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import { MDBInput } from "mdbreact";
 import { GlobalCtx } from "../../App";
 
 const StudentForm = (props) => {
@@ -18,9 +19,9 @@ const StudentForm = (props) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   
-
   return (
       <>
+      <MDBInput label="Create/Edit Student" />
       <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Child Name" name="child_name" value={formData.child_name} onChange={handleChange} ></input>
           <input type="img" placeholder="Child Image" name="child_image" value={formData.child_image} onChange={handleChange} ></input>

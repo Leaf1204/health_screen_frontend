@@ -1,5 +1,6 @@
 import React from "react";
 import MultiSelect from "react-multi-select-component";
+import { MDBInput } from "mdbreact";
 
 const TeacherForm = (props) => {
   //state for the form
@@ -38,11 +39,12 @@ const TeacherForm = (props) => {
 
   return (
       <>
+      <MDBInput label="Create/Edit Teacher" />
       <form onSubmit={handleSubmit}>
           <input type="text" placeholder="teacher Name" name="teacherName" value={formData.teacherName} onChange={handleChange} ></input> <br/>
           Students:<br/>
           <MultiSelect options={transformStudents()} value={selected} onChange={setSelected} labelledBy={"Select"}/>
-          <input type="text" placeholder="username" name="username" value={formData.username} onChange={handleChange} ></input>
+          <input type="text" placeholder="username" name="username" value={formData.username} onChange={handleChange} disabled={props.label == "edit"}></input>
           <input type="password" placeholder="password" name="password" value={formData.password} onChange={handleChange} ></input>
           <input type="submit" value={props.label} />
       </form>

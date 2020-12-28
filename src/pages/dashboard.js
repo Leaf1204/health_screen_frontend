@@ -82,8 +82,6 @@ const emptyParent = {
 //////handleUpdate to update a parent when form is clicked
 
 const handleUpdate = (parent, id) => {
-// const parent = update.current.value;
-console.log(parent)
 fetch(url + "/parent/" + parent._id, {
 
   method: "put",
@@ -215,8 +213,6 @@ const handleCreateTeacher = (teacher) => {
     //////handleUpdate to update a parent when form is clicked
 
 const handleUpdateTeacher = (teacher, id) => {
-    // const parent = update.current.value;
-    console.log(teacher)
     fetch(url + "/teacher/" + teacher._id, {
     
       method: "put",
@@ -321,7 +317,7 @@ const handleDeleteTeacher = (id) => {
                                     students ? students.map((student) => (
                                     <tr> 
                                     <td>{student._id}</td>
-                                    <td> {student.child_name}</td>
+                                    <td>{student.child_name}</td>
                                     <td>{student.child_image}</td>
                                     <td>{student.parent_user_name}</td>
                                     <td><Link to={`/studentEdit`} onClick={()=>setSelectedStudent(student)}>Edit</Link></td>
@@ -435,7 +431,7 @@ const handleDeleteTeacher = (id) => {
                         label="edit"
                         teacher={selectedTeacher}
                         // student={selectedStudent}
-                        // students={students}
+                        students={students}
                         handleSubmit={handleUpdateTeacher}
                     /> 
                   )}/>

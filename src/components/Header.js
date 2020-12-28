@@ -8,14 +8,14 @@ const Header = (props) => {
 
   const logout = (
     <Link>
-      <h2
+      <p
         onClick={() => {
           window.localStorage.removeItem("token");
           setGState({ ...gState, token: null });
         }}
       >
         Logout
-      </h2>
+      </p>
     </Link>
   );
 
@@ -23,7 +23,7 @@ const Header = (props) => {
     <>
     <MDBNavbar color= '#9fa8da indigo lighten-3 dark' expand="md">
     <MDBNavbarBrand>
-      <strong className="white-text">Health Screener</strong>
+      <strong className="white-text">Covid Health Screener</strong>
     </MDBNavbarBrand>
       <MDBNavbarNav left>
         <MDBNavItem active>

@@ -35,12 +35,13 @@ const Login = (props) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            window.localStorage.setItem("token", JSON.stringify(data))
-            setGState({...gState, token: data.token});
-            setForm(blankForm);
-
             const decodedToken = jwt_decode(data.token);
+
+            window.localStorage.setItem("token", JSON.stringify(data))
+            window.localStorage.setItem("username", decodedToken.username);
+
+            setGState({...gState, token: data.token, username: decodedToken.username});
+            setForm(blankForm);
 
             if(decodedToken.typeOf == "admin"){
                 props.history.push("/");
