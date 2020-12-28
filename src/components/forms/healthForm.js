@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBInput } from "mdbreact";
+import { MDBContainer, MDBInput, MDBIcon } from "mdbreact";
 
 
 const HealthForm = (props) => {
@@ -29,39 +29,57 @@ const HealthForm = (props) => {
             <input type="text" name="student_id" value={formData.student_id}></input>
             </label>
             <br/> */}
+            <h1><MDBIcon icon="laptop-medical m-3" />Daily Health Check Form</h1>
+            <p>Before arriving at school you must review health screening       questions for your student(s) and complete the Student COVID Screening form for school. If you answer <b>YES</b> to any screening question you must stay home and report the absence due to the screening or other illness.</p>
+            <p>These questions refer only to new symptoms or a change in usual symptoms. You do not need to stay home for usual symptoms experienced due to a chronic condition unless they are worse than usual.</p>
+            
             <label>
-               1. Does your child currently have a temperature of 100.4 or greater, feel feverish or have chills?
+                <b> 1. Does your child currently have a temperature of 100.4 or greater, feel feverish or have chills?</b>   
+               <br/>
             <input type="radio" value="Yes" name="have_fever" onChange={handleChange}></input>Yes
+            <br/>
             <input type="radio" value="No" name="have_fever" onChange={handleChange}></input>No
             </label>
             <br/>
             <label>
-                2. Does your child currently have a new or unexplained persistent cough?
+                <b>2. Does your child currently have a new or unexplained persistent cough?</b>
+                <br/>
                 <input type="radio" value="Yes" name="have_cough" onChange={handleChange}></input>Yes
+                <br/>
                 <input type="radio" value="No" name="have_cough" onChange={handleChange}></input>No
             </label>
             <br/>
             <label>
-                3. Does your child currently have difficulty breathing or shortness of breath that is new or a change in a usual symptom?
+                <b>3. Does your child currently have difficulty breathing or shortness of breath that is new or a change in a usual symptom?</b>
+                <br/>
                 <input type="radio" value="Yes" name="have_difficulty_breathing" onChange={handleChange}></input>Yes
+                <br/>
                 <input type="radio" value="No" name="have_difficulty_breathing" onChange={handleChange}></input>No
             </label>
             <br/>
             <label>
-                4. Has your child experienced a loss of taste or smell in the past 24hrs (1 day)?
+                <b> 4. Has your child experienced a loss of taste or smell in the past 24hrs (1 day)?</b>
+                <br/>
                 <input type="radio" value="Yes" name="have_loss_of_taste" onChange={handleChange}></input>Yes
+                <br/>
                 <input type="radio" value="No" name="have_loss_of_taste" onChange={handleChange}></input>No
             </label>
             <br/>
             <label>
-                5. Is your child currently experiencing any of the following symptoms that are new or are a change in usual symptoms?
+                <b>5. Is your child currently experiencing any of the following symptoms that are new or are a change in usual symptoms?
+                <br/>
+                Sore Throat; Fatigue; Diarrhea; Headache; Congestion/Runny Nose; Muscle Aches; Nausea/Vomiting</b>
+                <br/>
                 <input type="radio" value="Yes" name="have_new_symptoms" onChange={handleChange}></input>Yes
+                <br/>
                 <input type="radio" value="No" name="have_new_symptoms" onChange={handleChange}></input>No
             </label>
             <br/>
             <label>
-                6. In the last 14 days has your child had close contact with anyone who has been diagnosed or presumed to have COVID 19?
+                <b>6. In the last 14 days has your child had close contact with anyone who has been diagnosed or presumed to have COVID 19?</b>
+                <br/>
                 <input type="radio" value="Yes" name="had_contact_with_covid" onChange={handleChange}></input>Yes
+                <br/>
                 <input type="radio" value="No" name="had_contact_with_covid" onChange={handleChange}></input>No
             </label>
             <input type="submit" value={props.label} />
