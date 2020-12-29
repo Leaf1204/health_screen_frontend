@@ -260,7 +260,7 @@ const handleDeleteTeacher = (id) => {
                    
                     <MDBCard>
                     <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
-                        Parents
+                    <MDBIcon icon="users p-2" />Parents
                     </MDBCardHeader>
                     <MDBCardBody>
                     <MDBTable>
@@ -269,7 +269,7 @@ const handleDeleteTeacher = (id) => {
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>User Name</th>
-                                <th>Kids</th>
+                                {/* <th>Kids</th> */}
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -281,9 +281,9 @@ const handleDeleteTeacher = (id) => {
                                 <td>{parent._id}</td>
                                 <td >{parent.parentName}</td>
                                 <td>{parent.username}</td>
-                                <td>todo</td>
-                                <td><Link to={`/edit`} onClick={()=>setSelectedParent(parent)}>Edit</Link></td>
-                                <td><Link onClick={() => handleDelete(parent._id)}>Delete</Link></td>
+                                {/* <td>todo</td> */}
+                                <td><Link to={`/edit`} onClick={()=>setSelectedParent(parent)}><MDBIcon far icon="edit" /></Link></td>
+                                <td><Link onClick={() => handleDelete(parent._id)}><MDBIcon far icon="trash-alt" /></Link></td>
                                 </tr>
                             )) : null }
                         </MDBTableBody>
@@ -297,7 +297,7 @@ const handleDeleteTeacher = (id) => {
                         </MDBCard>
                             <MDBCard className="my-5">
                                 <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
-                                   students
+                                <MDBIcon icon="child p-2" />students
                                 </MDBCardHeader>
                      <MDBCardBody>
                         <MDBTable>
@@ -319,8 +319,8 @@ const handleDeleteTeacher = (id) => {
                                     <td>{student.child_name}</td>
                                     <td>{student.child_image}</td>
                                     <td>{student.parent_user_name}</td>
-                                    <td><Link to={`/studentEdit`} onClick={()=>setSelectedStudent(student)}>Edit</Link></td>
-                                    <td><Link onClick={() => handleDeleteStudent(student._id)}>Delete</Link></td>
+                                    <td><Link to={`/studentEdit`} onClick={()=>setSelectedStudent(student)}><MDBIcon far icon="edit" /></Link></td>
+                                    <td><Link onClick={() => handleDeleteStudent(student._id)}><MDBIcon far icon="trash-alt" /></Link></td>
                                     </tr>
                                  )) : null 
                                 }
@@ -335,7 +335,7 @@ const handleDeleteTeacher = (id) => {
                         </MDBCard>
                         <MDBCard>
                                 <MDBCardHeader tag="h4" className="text-center font-weight-bold text-uppercase py-4 m-2 p-2">
-                                   Teachers
+                                <MDBIcon icon="chalkboard-teacher p-2" />Teachers
                                 </MDBCardHeader>
                      <MDBCardBody>
                         <MDBTable>
@@ -355,8 +355,8 @@ const handleDeleteTeacher = (id) => {
                                         <td>{teacher.teacherName}</td>
                                         <td>{teacher.username}</td>
                                         <td>{teacher.names.join(",")}</td>
-                                        <td><Link to={`/teacherEdit`} onClick={()=>setSelectedTeacher(teacher)}>Edit</Link></td>
-                                        <td><Link onClick={() => handleDeleteTeacher(teacher._id)}>Delete</Link></td>
+                                        <td><Link to={`/teacherEdit`} onClick={()=>setSelectedTeacher(teacher)}><MDBIcon far icon="edit" /></Link></td>
+                                        <td><Link onClick={() => handleDeleteTeacher(teacher._id)}><MDBIcon far icon="trash-alt" /></Link></td>
                                     </tr>
                                 )): null
                             }

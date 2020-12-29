@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GlobalCtx } from "../App";
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBIcon, MDBCol, MDBContainer, MDBRow, MDBFooter   } from "mdbreact";
 
 const Header = (props) => {
   const { gState, setGState } = React.useContext(GlobalCtx);
@@ -15,7 +14,7 @@ const Header = (props) => {
           setGState({ ...gState, token: null });
         }}
       >
-        Logout
+        <MDBIcon icon="sign-out-alt" />Logout
       </p>
     </Link>
   );
@@ -43,22 +42,7 @@ const Header = (props) => {
           {gState.token ? logout : null}
           </MDBNavItem>
           </MDBNavbarNav>
-      {/* <MDBNavbarNav right>
-        <MDBNavItem>
-          <MDBNavLink className="waves-effect waves-light" to="#!">
-            <MDBIcon fab icon="twitter" />
-          </MDBNavLink>
-        </MDBNavItem>
-        <MDBNavItem>
-          <MDBNavLink className="waves-effect waves-light" to="#!">
-            <MDBIcon fab icon="google-plus-g" />
-          </MDBNavLink>
-
-        </MDBNavItem>
-      </MDBNavbarNav> */}
   </MDBNavbar>
-
-   
     
     </>
   );

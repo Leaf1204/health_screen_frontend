@@ -28,8 +28,8 @@ export const GlobalCtx = React.createContext(null)
 
 function App() {
   const [gState, setGState] = React.useState({
-    // url: "https://covidhealthscreen.herokuapp.com",
-    url : "http://localhost:5000",
+    url: "https://covidhealthscreen.herokuapp.com",
+    // url : "http://localhost:5000",
     token: null,
   });
 

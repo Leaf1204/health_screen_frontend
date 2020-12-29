@@ -1,7 +1,7 @@
 import React from "react";
 import jwt_decode from "jwt-decode";
 import {GlobalCtx} from "../App";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 
 const Login = (props) => {
 
@@ -58,7 +58,9 @@ const Login = (props) => {
      
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol md="6">
+                    <MDBCol md="6 m-4 p-4">
+                        <MDBCard>
+                            <MDBCardBody>
                     <form onSubmit={handleSubmit}>
                         <p className="h5 text-center mb-4 my-5">Sign in</p>
                         <div className="grey-text">
@@ -69,6 +71,8 @@ const Login = (props) => {
                             <MDBBtn color="#c5cae9 indigo lighten-4" type="submit">Login</MDBBtn>
                             </div>
                     </form>
+                    </MDBCardBody>
+                    </MDBCard>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
