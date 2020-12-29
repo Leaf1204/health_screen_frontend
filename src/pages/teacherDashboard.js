@@ -7,7 +7,7 @@ const TeacherDashboard = (props) => {
         <>
             <h1>Teacher dashboard</h1>
             <p>
-                todo : fetch all students as per students_ids and join with related health form
+                todo : fetch all students as per students_ids and join with related health form 
             </p>
         </>
     )
