@@ -22,7 +22,7 @@ const Header = (props) => {
 
   return (
     <>
-    <MDBNavbar color= '#9fa8da indigo lighten-3' expand="md">
+    <MDBNavbar color= '#c5cae9 indigo lighten-4' expand="md">
     <MDBNavbarBrand>
       <img src="https://i.imgur.com/C4UfKyh.png"></img>
       <strong className="black-text">CHS</strong>

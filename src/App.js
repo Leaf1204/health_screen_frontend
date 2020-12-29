@@ -16,6 +16,7 @@ import {
   Link
 } from "react-router-dom";
 import './App.css';
+import { MDBContainer } from "mdbreact";
 
 //global context
 export const GlobalCtx = React.createContext(null)
@@ -47,9 +48,9 @@ function App() {
   return (
     <GlobalCtx.Provider value={{gState, setGState}}>
       <Router>
-      <div className="App">
-
+  
       <Header/>
+      <MDBContainer>
       <main>
        
         <Switch>
@@ -68,7 +69,7 @@ function App() {
         </Switch>
       
       </main>
-    </div>
+      </MDBContainer>
     </Router>
     </GlobalCtx.Provider>
   );

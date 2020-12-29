@@ -7,7 +7,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
-  import { MDBContainer } from "mdbreact";
+  import { MDBContainer, MDBBtn } from "mdbreact";
 import HealthForm from "../components/forms/healthForm";
 const ParentDashboard = (props) => {
   
@@ -67,7 +67,7 @@ const ParentDashboard = (props) => {
         <p>Please complete a health form for each child</p>
             {
                 kids? kids.map((kid)=>{
-                    return  <Link to="/healthForm" params={{label: "check-in" }}onClick={()=>setSelectedKid(kid)}><button>Complete health form for <b>{`${kid.child_name}`}</b></button></Link>
+                    return  <Link to="/healthForm" params={{label: "check-in" }}onClick={()=>setSelectedKid(kid)}><MDBBtn color="#e8eaf6 indigo lighten-5">Complete health form for <b>{`${kid.child_name}`}</b></MDBBtn></Link>
                 }): null
             }
             <Route 

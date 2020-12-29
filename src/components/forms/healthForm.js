@@ -20,7 +20,7 @@ const HealthForm = (props) => {
   return (
       <>
       <h1><MDBIcon icon="laptop-medical m-3" />Daily Health Check Form For <b>{`${kid.child_name}`}</b></h1>
-            <p>Before arriving at school you must review health screening       questions for your student(s) and complete the Student COVID Screening form for school. If you answer <b>YES</b> to any screening question you must stay home and report the absence due to the screening or other illness.</p>
+            <p>Before arriving at school you must review health screening questions for your student(s) and complete the Student COVID Screening form for school. If you answer <b>YES</b> to any screening question you must stay home and report the absence due to the screening or other illness.</p>
             <p>These questions refer only to new symptoms or a change in usual symptoms. You do not need to stay home for usual symptoms experienced due to a chronic condition unless they are worse than usual.</p>
             
         <form onSubmit={handleSubmit}>            
