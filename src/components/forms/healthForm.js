@@ -14,7 +14,7 @@ const HealthForm = (props) => {
     event.preventDefault(); // Prevent Form from Refreshing
     props.handleSubmit(formData); // Submit to Parents desired function
     props.history.push("/parentDashboard"); //Push back to display page
-    addToast('Child checked in', { appearance: 'success' })
+    addToast(`${kid.child_name} has completed health form`, { appearance: 'success' })
     // addToast("There was an error", { appearance: 'error' })
   };
 
