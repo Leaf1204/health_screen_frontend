@@ -1,21 +1,31 @@
 import React from "react";
 import { MDBContainer, MDBInput, MDBIcon } from "mdbreact";
-
+import { useToasts } from 'react-toast-notifications'
 
 const HealthForm = (props) => {
   //state for the form
   const [formData, setFormData] = React.useState({"student_id":props.kid._id, "dateOf" : props.dateOf});
   const [kid] = React.useState(props.kid);
 
+  /////react-toast-notification 
+      const { addToast } = useToasts()
+    
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent Form from Refreshing
     props.handleSubmit(formData); // Submit to Parents desired function
     props.history.push("/parentDashboard"); //Push back to display page
+    addToast('Child checked in', { appearance: 'success' })
+    // addToast("There was an error", { appearance: 'error' })
   };
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
+
+ 
+   
+   
+
 
   return (
       <>
