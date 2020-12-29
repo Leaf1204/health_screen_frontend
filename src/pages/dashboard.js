@@ -153,7 +153,7 @@ const handleUpdateStudent = (student, id) => {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(student),
     }).then((response) => response.json())
     .then((data) => {
         getStudents();
@@ -185,7 +185,7 @@ const getTeachers = async() => {
             Authorization: "bearer " + token
         }
     })
-    const json = await response.json()
+    const json = await response.json();
     setTeachers(json)
   }
   //have teacher data displayed on page
@@ -220,7 +220,7 @@ const handleUpdateTeacher = (teacher, id) => {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(teacher),
     }).then((response) => response.json())
     .then((data) => {
         // update.current.value="";
@@ -354,7 +354,7 @@ const handleDeleteTeacher = (id) => {
                                     <tr>
                                         <td>{teacher.teacherName}</td>
                                         <td>{teacher.username}</td>
-                                        <td>{teacher.students_ids.join(",")}</td>
+                                        <td>{teacher.names.join(",")}</td>
                                         <td><Link to={`/teacherEdit`} onClick={()=>setSelectedTeacher(teacher)}>Edit</Link></td>
                                         <td><Link onClick={() => handleDeleteTeacher(teacher._id)}>Delete</Link></td>
                                     </tr>
@@ -436,7 +436,7 @@ const handleDeleteTeacher = (id) => {
                         {...rp}
                         label="edit"
                         teacher={selectedTeacher}
-                        // student={selectedStudent}
+                        //student={selectedStudent}
                         students={students}
                         handleSubmit={handleUpdateTeacher}
                     /> 

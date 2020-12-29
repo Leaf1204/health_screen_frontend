@@ -12,9 +12,12 @@ const TeacherForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent Form from Refreshing
-    const selectedIds = selected.map((student)=>{
-      return student.value;
-    }).join(",");
+    let selectedIds = "";
+    if(selected != undefined && selectedIds != null){
+      selectedIds = selected.map((student)=>{
+        return student.value;
+      }).join(",");
+    }
     formData.students_ids = selectedIds;
     props.handleSubmit(formData); // Submit to Parents desired function
     props.history.push("/"); //Push back to display page
