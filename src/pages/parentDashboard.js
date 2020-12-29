@@ -64,10 +64,10 @@ const ParentDashboard = (props) => {
         <MDBContainer>
         <h1>ParentDashoard</h1>
         <h5>Today is {`${getTodaysDate()}`}</h5>
-        <p>Please complete a health form for each child</p>
+        <p>Please complete the Daily Health Check Form for each child.</p>
             {
                 kids? kids.map((kid)=>{
-                    return  <Link to="/healthForm" params={{label: "check-in" }}onClick={()=>setSelectedKid(kid)}><MDBBtn color="#e8eaf6 indigo lighten-5">Complete health form for <b>{`${kid.child_name}`}</b></MDBBtn></Link>
+                    return  <Link to="/healthForm" params={{label: "check-in" }}onClick={()=>setSelectedKid(kid)}><MDBBtn color="#e8eaf6 indigo lighten-5">Complete Daily Health Check Form for <b>{`${kid.child_name}`}</b></MDBBtn></Link>
                 }): null
             }
             <Route 
